@@ -8,8 +8,8 @@ import retrofit2.http.POST
 
 interface ApiInterface {
 
-    @GET("api")
-    fun fetchData(): Call<ApiResponse>
+//    @GET("api")
+//    fun fetchData(): Call<ApiResponse>
 
     @POST("signup")
     fun signUp(@Body signUpRequest: SignUpRequest): Call<SignUpRequest>
