@@ -15,6 +15,6 @@ interface ApiInterface {
     fun signUp(@Body signUpRequest: SignUpModel): Call<SignUpModel>
 
     @POST("login")
-    fun logIn(@Body signUpRequest: LoginModel): Call<LoginModel>
+    fun logIn(@Body loginRequest: LoginModel): Call<LoginModel>
 
 }

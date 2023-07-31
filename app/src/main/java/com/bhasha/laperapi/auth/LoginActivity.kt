@@ -1,10 +1,12 @@
 package com.bhasha.laperapi.auth
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.bhasha.laperapi.api.ApiInterface
 import com.bhasha.laperapi.Data.LoginModel
@@ -20,6 +22,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var email: EditText
     private lateinit var password: EditText
     private lateinit var submitBtn: Button
+    private lateinit var siginup: TextView
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         email = findViewById(R.id.login_user_email)
         password = findViewById(R.id.login_user_password)
         submitBtn = findViewById(R.id.login_btn)
+        siginup = findViewById(R.id.sign_up_btn)
 
 
         val retrofitBuilder = Retrofit.Builder()
@@ -64,8 +69,11 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             })
+        }
 
-
+        siginup.setOnClickListener {
+            val intent = Intent(baseContext,RegisterActivity::class.java)
+            startActivity(intent)
         }
 
     }
