@@ -1,4 +1,4 @@
-package com.bhasha.laperapi
+package com.bhasha.laperapi.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
