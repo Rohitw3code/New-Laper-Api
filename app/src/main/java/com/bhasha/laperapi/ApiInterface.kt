@@ -13,4 +13,6 @@ interface ApiInterface {
 
     @POST("signup")
     fun signUp(@Body signUpRequest: SignUpRequest): Call<SignUpRequest>
+
+
 }
