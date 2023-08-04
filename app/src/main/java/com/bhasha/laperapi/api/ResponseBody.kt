@@ -14,11 +14,20 @@ object ResponseBody {
 //        return jsonapi.getUserData(token)
 //    }
 
-
-
-    fun signUp(model:SignUpModel):Call<SignUpModel>{
+    fun signUpResponseBody(model:SignUpModel, onResponse: (String?) -> Unit, onFailure: (Throwable) -> Unit) {
         val jsonapi = RetrofitClient.getClient()
-        return jsonapi.signUp(model)
+        jsonapi.signUp(model).enqueue(object : Callback<SignUpModel> {
+            override fun onResponse(call: Call<SignUpModel>, response: Response<SignUpModel>) {
+                if (response.isSuccessful) {
+                    onResponse("Sign Up Successful")
+                } else {
+                    onFailure(Throwable("Response unsuccessful"))
+                }
+            }
+            override fun onFailure(call: Call<SignUpModel>, t: Throwable) {
+                onFailure(t)
+            }
+        })
     }
 
     fun getUserResponseBody(context: Context, onResponse: (UserFetch?) -> Unit, onFailure: (Throwable) -> Unit) {

@@ -41,39 +41,26 @@ class RegisterActivity : AppCompatActivity() {
             val userEmail = email.text.toString().trim()
             val userPassword = password.text.toString().trim()
             val userName = name.text.toString().trim()
-            val user = SignUpModel(userEmail, userName , userName , userPassword)
+            val user = SignUpModel(userEmail, userName, userName, userPassword)
 
-            val call = ResponseBody.signUp(user)
-            call.enqueue(object : Callback<SignUpModel> {
-                override fun onResponse(
-                    call: Call<SignUpModel>,
-                    response: Response<SignUpModel>
-                ) {
-                    if (response.isSuccessful){
-                        Toast.makeText(baseContext,"Registered", Toast.LENGTH_SHORT).show()
-                    }
-                    else{
-                        Toast.makeText(baseContext,"Fail "+response.message(), Toast.LENGTH_SHORT).show()
-                    }
+            ResponseBody.signUpResponseBody(user, onResponse = { msg ->
+                if (msg != null) {
+                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                }
+            },
+                onFailure = { t ->
+                    Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
+                })
+
+
+            login
+                .setOnClickListener {
+                    val intent = Intent(baseContext, LoginActivity::class.java)
+                    startActivity(intent)
                 }
 
-                override fun onFailure(call: Call<SignUpModel>, t: Throwable) {
-                    Toast.makeText(baseContext,"Failed", Toast.LENGTH_SHORT).show()
-                }
 
-            })
         }
-
-        login
-            .setOnClickListener{
-                val intent = Intent(baseContext,LoginActivity::class.java)
-                startActivity(intent)
-            }
-
-
-
-
-
 
     }
 

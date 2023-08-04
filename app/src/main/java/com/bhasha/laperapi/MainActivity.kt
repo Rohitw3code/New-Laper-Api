@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import com.bhasha.laperapi.Data.User
 import com.bhasha.laperapi.api.ResponseBody
 
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                 }
             },
             onFailure = { t ->
-                t.printStackTrace()
+                Toast.makeText(baseContext,t.message, Toast.LENGTH_SHORT).show()
             }
         )
 
