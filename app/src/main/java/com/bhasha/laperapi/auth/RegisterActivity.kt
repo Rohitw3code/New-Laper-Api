@@ -39,20 +39,18 @@ class RegisterActivity : AppCompatActivity() {
 
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://192.168.38.135:3000/api/")
+            .baseUrl("http://192.168.235.135:3000/api/")
             .build()
 
 
         val jsonapi = retrofitBuilder.create(ApiInterface::class.java)
 
-//        val user = SignUpModel(email.text.toString(),password.text.toString(),name.text.toString(),"username")
-
         submitBtn.setOnClickListener {
 
-            val userEmail = email.text.toString()
-            val userPassword = password.text.toString()
-            val userName = name.text.toString()
-            val user = SignUpModel(userEmail, userPassword, userName, "username")
+            val userEmail = email.text.toString().trim()
+            val userPassword = password.text.toString().trim()
+            val userName = name.text.toString().trim()
+            val user = SignUpModel(userEmail, userName , userName , userPassword)
 
             val call = jsonapi.signUp(user)
             call.enqueue(object : Callback<SignUpModel> {
