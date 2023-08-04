@@ -1,6 +1,10 @@
 package com.bhasha.laperapi.api
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.util.Log
+import com.bhasha.laperapi.Data.LoginModel
+import com.bhasha.laperapi.Data.LoginResponse
 import com.bhasha.laperapi.Data.SignUpModel
 import com.bhasha.laperapi.Data.UserFetch
 import retrofit2.Call
@@ -13,6 +17,23 @@ object ResponseBody {
 //        val jsonapi = RetrofitClient.getClient()
 //        return jsonapi.getUserData(token)
 //    }
+
+
+    fun logInResponseBody(model:LoginModel, onResponse: (String?) -> Unit, onFailure: (Throwable) -> Unit) {
+        val jsonapi = RetrofitClient.getClient()
+        jsonapi.logIn(model).enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if (response.isSuccessful) {
+                    onResponse(response.body()?.token)
+                } else {
+                    onFailure(Throwable("Response unsuccessful"))
+                }
+            }
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                onFailure(t)
+            }
+        })
+    }
 
     fun signUpResponseBody(model:SignUpModel, onResponse: (String?) -> Unit, onFailure: (Throwable) -> Unit) {
         val jsonapi = RetrofitClient.getClient()

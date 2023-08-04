@@ -2,18 +2,15 @@ package com.bhasha.laperapi.auth
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bhasha.laperapi.Data.SignUpModel
 import com.bhasha.laperapi.R
 import com.bhasha.laperapi.api.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var textView: TextView
@@ -51,16 +48,13 @@ class RegisterActivity : AppCompatActivity() {
                 onFailure = { t ->
                     Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
                 })
-
-
-            login
-                .setOnClickListener {
-                    val intent = Intent(baseContext, LoginActivity::class.java)
-                    startActivity(intent)
-                }
-
-
         }
+
+        login.setOnClickListener {
+            val intent = Intent(baseContext, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
