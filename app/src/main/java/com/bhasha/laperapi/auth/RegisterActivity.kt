@@ -10,12 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import com.bhasha.laperapi.Data.SignUpModel
 import com.bhasha.laperapi.R
-import com.bhasha.laperapi.api.ApiInterface
+import com.bhasha.laperapi.api.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var textView: TextView
@@ -37,13 +35,6 @@ class RegisterActivity : AppCompatActivity() {
         password = findViewById(R.id.user_password)
         submitBtn = findViewById(R.id.submit_btn)
 
-        val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://192.168.235.135:3000/api/")
-            .build()
-
-
-        val jsonapi = retrofitBuilder.create(ApiInterface::class.java)
 
         submitBtn.setOnClickListener {
 
@@ -52,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
             val userName = name.text.toString().trim()
             val user = SignUpModel(userEmail, userName , userName , userPassword)
 
-            val call = jsonapi.signUp(user)
+            val call = ResponseBody.signUp(user)
             call.enqueue(object : Callback<SignUpModel> {
                 override fun onResponse(
                     call: Call<SignUpModel>,

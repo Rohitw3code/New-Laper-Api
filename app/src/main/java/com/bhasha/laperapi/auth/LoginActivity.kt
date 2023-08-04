@@ -15,6 +15,7 @@ import com.bhasha.laperapi.Data.LoginModel
 import com.bhasha.laperapi.Data.LoginResponse
 import com.bhasha.laperapi.MainActivity
 import com.bhasha.laperapi.R
+import com.bhasha.laperapi.api.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,13 +41,7 @@ class LoginActivity : AppCompatActivity() {
 
         val sharedPreferences: SharedPreferences = getSharedPreferences("credential", MODE_PRIVATE)
 
-        val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://192.168.235.135:3000/api/")
-            .build()
-
-
-        val jsonapi = retrofitBuilder.create(ApiInterface::class.java)
+        val jsonapi = RetrofitClient.getClient()
 
 
         submitBtn.setOnClickListener {
