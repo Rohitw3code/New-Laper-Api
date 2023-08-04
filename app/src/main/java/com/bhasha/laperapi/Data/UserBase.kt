@@ -1,6 +1,6 @@
 package com.bhasha.laperapi.Data
 
-data class UserFetch(
+data class UserBase(
     val message: String,
-    val user: User
+    val user: UserModel
 )

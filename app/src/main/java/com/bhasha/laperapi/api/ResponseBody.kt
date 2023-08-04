@@ -1,12 +1,10 @@
 package com.bhasha.laperapi.api
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
 import com.bhasha.laperapi.Data.LoginModel
 import com.bhasha.laperapi.Data.LoginResponse
 import com.bhasha.laperapi.Data.SignUpModel
-import com.bhasha.laperapi.Data.UserFetch
+import com.bhasha.laperapi.Data.UserBase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,20 +49,20 @@ object ResponseBody {
         })
     }
 
-    fun getUserResponseBody(context: Context, onResponse: (UserFetch?) -> Unit, onFailure: (Throwable) -> Unit) {
+    fun getUserResponseBody(context: Context, onResponse: (UserBase?) -> Unit, onFailure: (Throwable) -> Unit) {
         val token = RetrofitClient.getCredential("token",context)
         val jsonapi = RetrofitClient.getClient()
-        jsonapi.getUserData(token).enqueue(object : Callback<UserFetch> {
-            override fun onResponse(call: Call<UserFetch>, response: Response<UserFetch>) {
+        jsonapi.getUserData(token).enqueue(object : Callback<UserBase> {
+            override fun onResponse(call: Call<UserBase>, response: Response<UserBase>) {
                 if (response.isSuccessful) {
-                    val userFetch: UserFetch? = response.body()
+                    val userFetch: UserBase? = response.body()
                     onResponse(userFetch)
                 } else {
                     onFailure(Throwable("Response unsuccessful"))
                 }
             }
 
-            override fun onFailure(call: Call<UserFetch>, t: Throwable) {
+            override fun onFailure(call: Call<UserBase>, t: Throwable) {
                 onFailure(t)
             }
         })

@@ -11,7 +11,7 @@ interface ApiInterface {
     @POST("user-fetch")
     fun getUserData(
         @Header("x-access-token") token:String,
-    ): Call<UserFetch>
+    ): Call<UserBase>
 
     @POST("signup")
     fun signUp(@Body signUpRequest: SignUpModel): Call<SignUpModel>
